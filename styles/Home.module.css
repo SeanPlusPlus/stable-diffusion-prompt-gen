@@ -33,6 +33,11 @@
   text-decoration: none;
 }
 
+.description a {
+  color: #0070f3;
+}
+
+.description a:hover,
 .title a:hover,
 .title a:focus,
 .title a:active {
@@ -45,13 +50,22 @@
   font-size: 4rem;
 }
 
+.btn {
+  padding: 10px 20px 10px 20px;
+  font-size: 1.5rem;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
 .title,
 .description {
   text-align: center;
 }
 
 .description {
-  margin: 4rem 0;
+  margin: 1rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
 }
@@ -82,14 +96,14 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
+  /* color: #0070f3;
   border-color: #0070f3;
+  cursor: pointer; */
 }
 
 .card h2 {
