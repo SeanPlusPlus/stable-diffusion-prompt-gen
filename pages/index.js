@@ -7,7 +7,7 @@ import _sample from 'lodash/sample'
 
 const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/main/nsp_pantry.json'
 
-const getTerms = (json) => {
+const getPrompt = (json) => {
   const s = Object.keys(json)
   const keys = _sampleSize(s, 4)
   const arr = []
@@ -15,24 +15,27 @@ const getTerms = (json) => {
     const term = _sample(json[k])
     arr.push(term)
   })
-  return arr
+  return arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
 }
 
 export default function Home() {
   const [data, setData] = useState(null)
-  const [terms, setTerms] = useState(null)
+  const [prompts, setPrompts] = useState([])
   useEffect(() => {
     async function fetchData() {
       const result = await axios(
         URL,
       );
       setData(result.data)
-      setTerms(getTerms(result.data))
+      const prompt = getPrompt(result.data)
+      setPrompts([prompt, ...prompts])
     }
     fetchData()
   }, [])
   const reGenerate = () => {
-    setTerms(getTerms(data))
+    const prompt = getPrompt(data)
+    setPrompts([prompt, ...prompts])
+    console.log(prompts);
   }
   return (
     <div className={styles.container}>
@@ -59,15 +62,15 @@ export default function Home() {
           </button>
         </p>
 
-        <div className={styles.grid}>
-          {terms ? (
-            <div href="https://nextjs.org/docs" className={styles.card}>
-              <p>{terms && terms.map((t, i) => (<span key ={t}>{t}{i < terms.length -1 ? ', ' : ''} </span>))}</p>
+        { prompts.map((p) => (
+            <div key={p} className={styles.grid}>
+              <div href="https://nextjs.org/docs" className={styles.card}>
+                <p>{p}</p>
+              </div>
             </div>
-          ) : (
-            <div className="lds-dual-ring"></div>
-          )}
-        </div>
+          ))
+        }
+
       </main>
 
       <footer className={styles.footer}>
