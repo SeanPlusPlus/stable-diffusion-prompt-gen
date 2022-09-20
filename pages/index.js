@@ -35,7 +35,14 @@ export default function Home() {
   const reGenerate = () => {
     const prompt = getPrompt(data)
     setPrompts([prompt, ...prompts])
+  }
+  const copy = () => {
     console.log(prompts);
+    const str = prompts.map((p) => p).join('\n')
+    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      alert('Prompts copied to clipboard')
+      navigator.clipboard.writeText(str);
+    } 
   }
   return (
     <div className={styles.container}>
@@ -59,6 +66,9 @@ export default function Home() {
         <p>
           <button className={styles.btn} onClick={reGenerate}>
             GENERATE 
+          </button>
+          <button className={styles.btn} onClick={copy}>
+            COPY 
           </button>
         </p>
 
