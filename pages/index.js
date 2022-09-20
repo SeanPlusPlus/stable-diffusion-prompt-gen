@@ -2,21 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import axios from 'axios'
-import _sampleSize from 'lodash/sampleSize'
-import _sample from 'lodash/sample'
+import getPrompt from '../utils/prompt'
 
 const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/main/nsp_pantry.json'
-
-const getPrompt = (json) => {
-  const s = Object.keys(json)
-  const keys = _sampleSize(s, 4)
-  const arr = []
-  keys.forEach((k) => {
-    const term = _sample(json[k])
-    arr.push(term)
-  })
-  return arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
-}
 
 export default function Home() {
   const [data, setData] = useState(null)
@@ -40,8 +28,8 @@ export default function Home() {
     console.log(prompts);
     const str = prompts.map((p) => p).join('\n')
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      alert('Prompts copied to clipboard')
       navigator.clipboard.writeText(str);
+      alert('Prompts copied to clipboard')
     } 
   }
   return (
