@@ -7,41 +7,32 @@ import _sample from 'lodash/sample'
 
 const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/main/nsp_pantry.json'
 
+const getTerms = (json) => {
+  const s = Object.keys(json)
+  const keys = _sampleSize(s, 4)
+  const arr = []
+  keys.forEach((k) => {
+    const term = _sample(json[k])
+    arr.push(term)
+  })
+  return arr
+}
+
 export default function Home() {
+  const [data, setData] = useState(null)
   const [terms, setTerms] = useState(null)
   useEffect(() => {
     async function fetchData() {
       const result = await axios(
         URL,
       );
-      const s = Object.keys(result.data)
-      const keys = _sampleSize(s, 4)
-      const arr = []
-      keys.forEach((k) => {
-        const term = _sample(result.data[k])
-        arr.push(term)
-      })
-
-      setTerms(arr)
+      setData(result.data)
+      setTerms(getTerms(result.data))
     }
     fetchData()
   }, [])
   const reGenerate = () => {
-    async function fetchData() {
-      const result = await axios(
-        URL,
-      );
-      const s = Object.keys(result.data)
-      const keys = _sampleSize(s, 4)
-      const arr = []
-      keys.forEach((k) => {
-        const term = _sample(result.data[k])
-        arr.push(term)
-      })
-
-      setTerms(arr)
-    }
-    fetchData()
+    setTerms(getTerms(data))
   }
   return (
     <div className={styles.container}>
@@ -64,7 +55,7 @@ export default function Home() {
 
         <p>
           <button className={styles.btn} onClick={reGenerate}>
-            GENERATE &rarr;
+            GENERATE 
           </button>
         </p>
 
