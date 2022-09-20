@@ -4,6 +4,7 @@ import _sample from 'lodash/sample'
 const getPrompt = (json) => {
   const s = Object.keys(json)
   const keys = _sampleSize(s, 4)
+  console.log('keys', keys)
   const arr = []
   keys.forEach((k) => {
     const term = _sample(json[k])
