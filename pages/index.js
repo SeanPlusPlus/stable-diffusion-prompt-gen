@@ -36,15 +36,15 @@ export default function Home() {
     } 
   }
   return (
-    <div className="">
+    <div>
       <Head>
         <title>Stable Diffusion Prompt Gen</title>
         <meta name="description" content="Get random stable diffusion prompts" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="">
-        <h1 className="">
+      <main className="text-center">
+        <h1 className="text-3xl font-bold">
           Stable Diffusion Prompt Gen
         </h1>
 
@@ -77,7 +77,7 @@ export default function Home() {
 
       </main>
 
-      <footer className="">
+      <footer className="text-center">
         Powered by&nbsp;<a
           href="https://twitter.com/SeanPlusPlus"
           target="_blank"
