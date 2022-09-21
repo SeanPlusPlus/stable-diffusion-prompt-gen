@@ -130,7 +130,7 @@ export default function Home() {
           <div className="py-4 text-md">
             {terms.map((t, i) => (
               <span key={i} className="mr-1">
-                {t.length < 60 ? (
+                {t.length < 38 ? (
                   <span className="badge hover:cursor-pointer hover:text-sky-500">{t}</span>
                 ) : (
                   <span className="hover:cursor-pointer hover:text-sky-500">{t} ~ </span>
