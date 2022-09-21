@@ -1,7 +1,7 @@
 import _sampleSize from 'lodash/sampleSize'
 import _sample from 'lodash/sample'
 
-const semiRandomKeys = [
+const semiRandomAttrs = [
   [
     'scenario-desc',
     'artist',
@@ -27,33 +27,31 @@ const semiRandomKeys = [
 
 export const getSemiRandomPrompt = (json) => {
   // const keys = semiRandomKeys[1]
-  const keys = _sample(semiRandomKeys)
-  console.log('* semi-random keys', keys)
+  const attributes = _sample(semiRandomAttrs)
   const arr = []
-  keys.forEach((k) => {
-    const term = _sample(json[k])
+  attributes.forEach((a) => {
+    const term = _sample(json[a])
     arr.push(term)
   })
   const text = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
   return {
     text,
-    attributes: keys,
+    attributes,
   }
 
 }
 
 export const getRandomPrompt = (json) => {
   const s = Object.keys(json)
-  const keys = _sampleSize(s, 5)
-  console.log('RANDOM keys', keys)
+  const attributes = _sampleSize(s, 5)
   const arr = []
-  keys.forEach((k) => {
-    const term = _sample(json[k])
+  attributes.forEach((a) => {
+    const term = _sample(json[a])
     arr.push(term)
   })
   const text = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
   return {
     text,
-    attributes: keys,
+    attributes,
   }
 }
