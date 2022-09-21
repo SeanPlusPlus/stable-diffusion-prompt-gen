@@ -11,7 +11,7 @@ export default function Home() {
   const [prompts, setPrompts] = useState([])
   const [attribute, setAttribute] = useState(null)
   const [terms, setTerms] = useState([])
-  const [semiRandomAttributes, setSemiRandomAttributes] = useState([])
+  const [semiRandomAttributes, setSemiRandomAttributes] = useState([null])
 
   // modals
   const [copyModal, setCopyModal] = useState('')
@@ -41,7 +41,11 @@ export default function Home() {
   const selectAttribute = (e) => {
     console.log(e.target.value)
     const value = e.target.value
-    setSemiRandomAttributes([value, ...semiRandomAttributes])
+    if (semiRandomAttributes[0] === null) {
+      setSemiRandomAttributes([value])
+    } else {
+      setSemiRandomAttributes([value, ...semiRandomAttributes])
+    }
   }
   const semiRandom = () => {
     console.log('**', semiRandomAttributes);
@@ -189,7 +193,7 @@ export default function Home() {
           </div>
 
           <div className="modal-action">
-            <button className="btn" onClick={semiRandom} disabled={semiRandomAttributes.length === 0}>Generate</button>
+            <button className="btn" onClick={semiRandom} disabled={semiRandomAttributes[0] === null}>Generate</button>
           </div>
         </div>
       </div>
