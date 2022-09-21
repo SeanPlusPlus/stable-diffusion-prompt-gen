@@ -41,18 +41,16 @@ export default function Home() {
   const selectAttribute = (e) => {
     console.log(e.target.value)
     const value = e.target.value
-    if (semiRandomAttributes[0] === null) {
-      setSemiRandomAttributes([value])
-    } else {
-      setSemiRandomAttributes([value, ...semiRandomAttributes])
-    }
+    setSemiRandomAttributes([...semiRandomAttributes, value])
   }
   const semiRandom = () => {
     console.log('**', semiRandomAttributes);
-    setSemiRandomModal('')
-    const { text, attributes } = getSemiRandomPrompt(data, semiRandomAttributes)
+    const a = [...semiRandomAttributes]
+    a.shift() // removes the null element
+    const { text, attributes } = getSemiRandomPrompt(data, a)
     const prompt = {type: 'semiRandom', text, attributes}
-    console.log('*', prompt);
+    setSemiRandomAttributes([null])
+    setSemiRandomModal('')
     setPrompts([prompt, ...prompts])
   }
   const openSemiRandom = () => {
@@ -180,20 +178,23 @@ export default function Home() {
           <h3 className="font-bold text-2xl">Build a Semi Random Prompt</h3>
 
           <div className="mt-2">
-            <select
-              className="select select-bordered w-full max-w-xs"
-              defaultValue={"default"}
-              onChange={selectAttribute}
-            >
-              <option name="default">Select Attribute</option>
-              {keys.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
+            {semiRandomAttributes.map((el, idx) => (
+              <select
+                key={idx}
+                className="select select-bordered w-full max-w-xs mb-2"
+                defaultValue={"default"}
+                onChange={selectAttribute}
+              >
+                <option name="default">Select Attribute</option>
+                {keys.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            ))}
           </div>
 
           <div className="modal-action">
-            <button className="btn" onClick={semiRandom} disabled={semiRandomAttributes[0] === null}>Generate</button>
+            <button className="btn" onClick={semiRandom} disabled={semiRandomAttributes.length === 1}>Generate</button>
           </div>
         </div>
       </div>

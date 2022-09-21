@@ -3,6 +3,7 @@ import _sample from 'lodash/sample'
 
 export const getSemiRandomPrompt = (json, attributes) => {
   const arr = []
+  console.log('attributes', attributes);
   attributes.forEach((a) => {
     const term = _sample(json[a])
     arr.push(term)
@@ -12,7 +13,6 @@ export const getSemiRandomPrompt = (json, attributes) => {
     text,
     attributes,
   }
-
 }
 
 export const getRandomPrompt = (json) => {
