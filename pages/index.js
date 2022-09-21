@@ -55,13 +55,13 @@ export default function Home() {
         </p>
 
         <div className="mt-8">
-          <button className="btn btn-primary mr-2" onClick={random}>
+          <button className="btn btn-primary mb-2 md:mr-2 w-60" onClick={random}>
             PURE-RANDOM PROMPT
           </button>
-          <button className="btn btn-secondary" onClick={semiRandom}>
+          <button className="btn btn-secondary mb-2 w-60" onClick={semiRandom}>
             SEMI-RANDOM PROMPT
           </button>
-          <button className="btn btn-info ml-2" onClick={copy}>
+          <button className="btn btn-info mb-2 md:ml-2 w-60" onClick={copy}>
             COPY TO CLIPBOARD
           </button>
         </div>
