@@ -29,11 +29,11 @@ export default function Home() {
     setPrompts([prompt, ...prompts])
   }
   const copy = () => {
-    console.log(prompts);
-    const str = prompts.map((p) => p).join('\n')
+    const str = prompts.map((p) => p.text).join('\n')
+    console.log('prompts', prompts);
+    console.log('str', str);
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(str);
-      alert('Prompts copied to clipboard')
+      navigator.clipboard.writeText(str)
     } 
   }
   return (
