@@ -112,7 +112,7 @@ export default function Home() {
                   </p>
                   <div>
                     {p.attributes.map((a) => (
-                      <span onClick={getTerms} data-name={a} className="badge mr-1 hover:cursor-pointer hover:text-sky-500" key={a}>{a}</span>
+                      <span onClick={getTerms} data-name={a} className="badge mr-1 mt-1 hover:cursor-pointer hover:text-sky-500" key={a}>{a}</span>
                     ))}
                     {p.type === 'semiRandom' && (
                       <button className="btn btn-square btn-sm btn-secondary float-right hover:cursor-auto">
