@@ -1,16 +1,38 @@
 import _sampleSize from 'lodash/sampleSize'
 import _sample from 'lodash/sample'
 
-const getPrompt = (json) => {
+const keySet = [
+  [
+    'scenario-desc',
+    'artist',
+    'landscape-type',
+    'style',
+    'hd',
+  ],
+]
+
+export const getCuratedPrompt = (json) => {
+  const keys = _sample(keySet)
+  console.log('* keys', keys)
+  const arr = []
+  keys.forEach((k) => {
+    const term = _sample(json[k])
+    arr.push(term)
+  })
+  const str = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
+  return str
+}
+
+
+export const getRandomPrompt = (json) => {
   const s = Object.keys(json)
-  const keys = _sampleSize(s, 4)
+  const keys = _sampleSize(s, 5)
   console.log('keys', keys)
   const arr = []
   keys.forEach((k) => {
     const term = _sample(json[k])
     arr.push(term)
   })
-  return arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
+  const str = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
+  return str
 }
-
-export default getPrompt

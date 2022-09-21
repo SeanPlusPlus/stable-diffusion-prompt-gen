@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import axios from 'axios'
-import getPrompt from '../utils/prompt'
+import { getRandomPrompt, getCuratedPrompt } from '../utils/prompt'
 
 const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/main/nsp_pantry.json'
 
@@ -15,13 +15,17 @@ export default function Home() {
         URL,
       );
       setData(result.data)
-      const prompt = getPrompt(result.data)
+      const prompt = getRandomPrompt(result.data)
       setPrompts([prompt, ...prompts])
     }
     fetchData()
   }, [])
-  const reGenerate = () => {
-    const prompt = getPrompt(data)
+  const random = () => {
+    const prompt = getRandomPrompt(data)
+    setPrompts([prompt, ...prompts])
+  }
+  const curate = () => {
+    const prompt = getCuratedPrompt(data)
     setPrompts([prompt, ...prompts])
   }
   const copy = () => {
@@ -46,14 +50,17 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get a random basket of terms from <a target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
+          Get a basket of terms from <a target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
             Noodle Soup Prompts
           </a>
         </p>
 
         <p>
-          <button className={styles.btn} onClick={reGenerate}>
-            GENERATE 
+          <button className={styles.btn} onClick={random}>
+            RANDOM
+          </button>
+          <button className={styles.btn} onClick={curate}>
+            CURATED
           </button>
           <button className={styles.btn} onClick={copy}>
             COPY 
