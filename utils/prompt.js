@@ -26,8 +26,9 @@ const semiRandomKeys = [
 ]
 
 export const getSemiRandomPrompt = (json) => {
-  // const keys = _sample(semiRandomKeys)
-  const keys = semiRandomKeys[1]
+  // const keys = semiRandomKeys[1]
+  
+  const keys = _sample(semiRandomKeys)
   console.log('* semi-random keys', keys)
   const arr = []
   keys.forEach((k) => {
