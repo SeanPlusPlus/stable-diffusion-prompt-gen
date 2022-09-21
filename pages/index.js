@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import { getRandomPrompt, getSemiRandomPrompt } from '../utils/prompt'
 
@@ -37,40 +36,40 @@ export default function Home() {
     } 
   }
   return (
-    <div className={styles.container}>
+    <div className="">
       <Head>
         <title>Stable Diffusion Prompt Gen</title>
         <meta name="description" content="Get random stable diffusion prompts" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
+      <main className="">
+        <h1 className="">
           Stable Diffusion Prompt Gen
         </h1>
 
-        <p className={styles.description}>
+        <p className="">
           Get a basket of terms from <a target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
             Noodle Soup Prompts
           </a>
         </p>
 
         <p>
-          <button className={styles.btn} onClick={random}>
+          <button className="" onClick={random}>
             PURE-RANDOM PROMPT
           </button>
-          <button className={styles.btn} onClick={semiRandom}>
+          <button className="" onClick={semiRandom}>
             SEMI-RANDOM PROMPT
           </button>
-          <button className={styles.btn} onClick={copy}>
+          <button className="" onClick={copy}>
             COPY TO CLIPBOARD
           </button>
         </p>
 
         { prompts.map((p, i) => (
-            <div key={i} className={styles.grid}>
-              <div href="https://nextjs.org/docs" className={styles.card}>
-                <p className={p.type === 'semiRandom' ? styles.semiRandom : styles.random}>{p.text}</p>
+            <div key={i} className="">
+              <div href="https://nextjs.org/docs" className="">
+                <p className={p.type}>{p.text}</p>
               </div>
             </div>
           ))
@@ -78,7 +77,7 @@ export default function Home() {
 
       </main>
 
-      <footer className={styles.footer}>
+      <footer className="">
         Powered by&nbsp;<a
           href="https://twitter.com/SeanPlusPlus"
           target="_blank"
