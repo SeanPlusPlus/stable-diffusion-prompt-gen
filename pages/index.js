@@ -7,6 +7,7 @@ const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/m
 
 export default function Home() {
   const [data, setData] = useState(null)
+  const [keys, setKeys] = useState([])
   const [prompts, setPrompts] = useState([])
   const [attribute, setAttribute] = useState(null)
   const [terms, setTerms] = useState([])
@@ -22,6 +23,9 @@ export default function Home() {
         URL,
       );
       setData(result.data)
+      const keys = Object.keys(result.data)
+      keys.sort()
+      setKeys(keys)
       const { text, attributes } = getRandomPrompt(result.data)
       const prompt = {type: 'random', text, attributes}
       setPrompts([prompt, ...prompts])
@@ -34,6 +38,7 @@ export default function Home() {
     setPrompts([prompt, ...prompts])
   }
   const semiRandom = () => {
+    setSemiRandomModal('')
     const selectedAttributes = [
       'adj-beauty',
       'landscape-type',
@@ -43,6 +48,7 @@ export default function Home() {
     ]
     const { text, attributes } = getSemiRandomPrompt(data, selectedAttributes)
     const prompt = {type: 'semiRandom', text, attributes}
+    console.log('*', prompt);
     setPrompts([prompt, ...prompts])
   }
   const openSemiRandom = () => {
@@ -64,7 +70,6 @@ export default function Home() {
   const close = () => {
     setCopyModal('')
     setAttribueModal('')
-    setSemiRandomModal('')
   }
   return (
     <div className="grid-bg min-h-screen">
@@ -100,7 +105,7 @@ export default function Home() {
         <div className="flex mt-2">
           <div className="m-auto">
             { prompts.map((p, i) => (
-              <div key={i} className="card bg-base-100 shadow-xl max-w-[700px] mb-4 mr-4 ml-4 md:mr-0 md:ml-0">
+              <div key={i} className="card card-compact bg-base-100 shadow-xl max-w-[700px] mb-4 mr-4 ml-4 md:mr-0 md:ml-0">
                 <div className="card-body">
                   <p>
                     {p.text}
@@ -109,6 +114,13 @@ export default function Home() {
                     {p.attributes.map((a) => (
                       <span onClick={getTerms} data-name={a} className="badge mr-1 hover:cursor-pointer hover:text-sky-500" key={a}>{a}</span>
                     ))}
+                    {p.type === 'semiRandom' && (
+                      <button className="btn btn-square btn-sm btn-secondary float-right hover:cursor-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -161,9 +173,22 @@ export default function Home() {
 
       <div className={`modal ${semiRandomModal}`}>
         <div className="modal-box">
-        <h3 className="font-bold text-2xl">Build a Semi Random Prompt</h3>
+          <h3 className="font-bold text-2xl">Build a Semi Random Prompt</h3>
+
+          <div className="mt-2">
+            <select
+              className="select select-bordered w-full max-w-xs"
+              defaultValue={"default"}
+            >
+              <option name="default">Select Attribute</option>
+              {keys.map((option) => (
+                <option key={option} name={option}>{option}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="modal-action">
-            <button className="btn" onClick={close}>Generate</button>
+            <button className="btn" onClick={semiRandom}>Generate</button>
           </div>
         </div>
       </div>
