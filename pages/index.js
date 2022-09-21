@@ -31,6 +31,10 @@ export default function Home() {
     const prompt = {type: 'semiRandom', text, attributes}
     setPrompts([prompt, ...prompts])
   }
+  const getTerms = (e) => {
+    const attribute = e.target.getAttribute('data-name')
+    console.log(data[attribute])
+  }
   const copy = () => {
     const str = prompts.map((p) => p.text).join('\n')
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
@@ -75,14 +79,14 @@ export default function Home() {
         <div className="flex mt-2">
           <div className="m-auto">
             { prompts.map((p, i) => (
-              <div key={i} className="card bg-base-100 shadow-xl mb-4 w-120 mr-4 ml-4 md:mr-0 md:ml-0">
+              <div key={i} className="card bg-base-100 shadow-xl max-w-[700px] mb-4 mr-4 ml-4 md:mr-0 md:ml-0">
                 <div className="card-body">
                   <p>
                     {p.text}
                   </p>
                   <div>
                     {p.attributes.map((a) => (
-                      <span className="badge mr-1" key={a}>{a}</span>
+                      <span onClick={getTerms} data-name={a} className="badge mr-1 hover:cursor-pointer" key={a}>{a}</span>
                     ))}
                   </div>
                 </div>
