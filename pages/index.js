@@ -11,6 +11,7 @@ export default function Home() {
   const [prompts, setPrompts] = useState([])
   const [attribute, setAttribute] = useState(null)
   const [terms, setTerms] = useState([])
+  const [semiRandomAttributes, setSemiRandomAttributes] = useState([])
 
   // modals
   const [copyModal, setCopyModal] = useState('')
@@ -37,16 +38,15 @@ export default function Home() {
     const prompt = {type: 'random', text, attributes}
     setPrompts([prompt, ...prompts])
   }
+  const selectAttribute = (e) => {
+    console.log(e.target.value)
+    const value = e.target.value
+    setSemiRandomAttributes([value, ...semiRandomAttributes])
+  }
   const semiRandom = () => {
+    console.log('**', semiRandomAttributes);
     setSemiRandomModal('')
-    const selectedAttributes = [
-      'adj-beauty',
-      'landscape-type',
-      'artist',
-      'style',
-      'hd',
-    ]
-    const { text, attributes } = getSemiRandomPrompt(data, selectedAttributes)
+    const { text, attributes } = getSemiRandomPrompt(data, semiRandomAttributes)
     const prompt = {type: 'semiRandom', text, attributes}
     console.log('*', prompt);
     setPrompts([prompt, ...prompts])
@@ -158,9 +158,9 @@ export default function Home() {
             {terms.map((t, i) => (
               <span key={i} className="mr-1">
                 {t.length < 38 ? (
-                  <span className="badge hover:cursor-pointer hover:text-sky-500">{t}</span>
+                  <span className="badge">{t}</span>
                 ) : (
-                  <span className="hover:cursor-pointer hover:text-sky-500">{t} ~ </span>
+                  <span>{t} ~ </span>
                 )}
               </span>
             ))}
@@ -179,16 +179,17 @@ export default function Home() {
             <select
               className="select select-bordered w-full max-w-xs"
               defaultValue={"default"}
+              onChange={selectAttribute}
             >
               <option name="default">Select Attribute</option>
               {keys.map((option) => (
-                <option key={option} name={option}>{option}</option>
+                <option key={option} value={option}>{option}</option>
               ))}
             </select>
           </div>
 
           <div className="modal-action">
-            <button className="btn" onClick={semiRandom}>Generate</button>
+            <button className="btn" onClick={semiRandom} disabled={semiRandomAttributes.length === 0}>Generate</button>
           </div>
         </div>
       </div>
