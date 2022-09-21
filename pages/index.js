@@ -39,12 +39,10 @@ export default function Home() {
     setPrompts([prompt, ...prompts])
   }
   const selectAttribute = (e) => {
-    console.log(e.target.value)
     const value = e.target.value
     setSemiRandomAttributes([...semiRandomAttributes, value])
   }
   const semiRandom = () => {
-    console.log('**', semiRandomAttributes);
     const a = [...semiRandomAttributes]
     a.shift() // removes the null element
     const { text, attributes } = getSemiRandomPrompt(data, a)
