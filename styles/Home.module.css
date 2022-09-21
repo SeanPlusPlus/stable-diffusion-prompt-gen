@@ -51,6 +51,7 @@
 }
 
 .btn {
+  display: inline;
   padding: 10px 20px 10px 20px;
   font-size: .9rem;
   margin: 0px 15px 0px 15px;
@@ -122,6 +123,14 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+@media (max-width: 800px) {
+  .btn{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 600px) {

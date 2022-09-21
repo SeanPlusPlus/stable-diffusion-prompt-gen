@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import axios from 'axios'
-import { getRandomPrompt, getCuratedPrompt } from '../utils/prompt'
+import { getRandomPrompt, getSemiRandomPrompt } from '../utils/prompt'
 
 const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/main/nsp_pantry.json'
 
@@ -15,17 +15,17 @@ export default function Home() {
         URL,
       );
       setData(result.data)
-      const prompt = getRandomPrompt(result.data)
+      const prompt = {type: 'random', text: getRandomPrompt(result.data)}
       setPrompts([prompt, ...prompts])
     }
     fetchData()
   }, [])
   const random = () => {
-    const prompt = getRandomPrompt(data)
+    const prompt = {type: 'random', text: getRandomPrompt(data)}
     setPrompts([prompt, ...prompts])
   }
-  const curate = () => {
-    const prompt = getCuratedPrompt(data)
+  const semiRandom = () => {
+    const prompt = {type: 'curated', text: getSemiRandomPrompt(data)}
     setPrompts([prompt, ...prompts])
   }
   const copy = () => {
@@ -57,20 +57,20 @@ export default function Home() {
 
         <p>
           <button className={styles.btn} onClick={random}>
-            RANDOM
+            PURE-RANDOM PROMPT
           </button>
-          <button className={styles.btn} onClick={curate}>
-            CURATED
+          <button className={styles.btn} onClick={semiRandom}>
+            SEMI-RANDOM PROMPT
           </button>
           <button className={styles.btn} onClick={copy}>
-            COPY 
+            COPY TO CLIPBOARD
           </button>
         </p>
 
-        { prompts.map((p) => (
-            <div key={p} className={styles.grid}>
+        { prompts.map((p, i) => (
+            <div key={i} className={styles.grid}>
               <div href="https://nextjs.org/docs" className={styles.card}>
-                <p>{p}</p>
+                <p>{p.text}</p>
               </div>
             </div>
           ))

@@ -11,9 +11,9 @@ const keySet = [
   ],
 ]
 
-export const getCuratedPrompt = (json) => {
+export const getSemiRandomPrompt = (json) => {
   const keys = _sample(keySet)
-  console.log('* keys', keys)
+  console.log('* semi-random keys', keys)
   const arr = []
   keys.forEach((k) => {
     const term = _sample(json[k])
@@ -27,7 +27,7 @@ export const getCuratedPrompt = (json) => {
 export const getRandomPrompt = (json) => {
   const s = Object.keys(json)
   const keys = _sampleSize(s, 5)
-  console.log('keys', keys)
+  console.log('RANDOM keys', keys)
   const arr = []
   keys.forEach((k) => {
     const term = _sample(json[k])
