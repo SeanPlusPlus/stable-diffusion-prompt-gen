@@ -15,23 +15,24 @@ export default function Home() {
         URL,
       );
       setData(result.data)
-      const prompt = {type: 'random', text: getRandomPrompt(result.data)}
+      const { text, attributes } = getRandomPrompt(result.data)
+      const prompt = {type: 'random', text, attributes}
       setPrompts([prompt, ...prompts])
     }
     fetchData()
   }, [])
   const random = () => {
-    const prompt = {type: 'random', text: getRandomPrompt(data)}
+    const { text, attributes } = getRandomPrompt(data)
+    const prompt = {type: 'random', text, attributes}
     setPrompts([prompt, ...prompts])
   }
   const semiRandom = () => {
-    const prompt = {type: 'semiRandom', text: getSemiRandomPrompt(data)}
+    const { text, attributes } = getSemiRandomPrompt(data)
+    const prompt = {type: 'semiRandom', text, attributes}
     setPrompts([prompt, ...prompts])
   }
   const copy = () => {
     const str = prompts.map((p) => p.text).join('\n')
-    console.log('prompts', prompts);
-    console.log('str', str);
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(str)
       setModal('modal-open')
@@ -79,6 +80,11 @@ export default function Home() {
                   <p>
                     {p.text}
                   </p>
+                  <div>
+                    {p.attributes.map((a) => (
+                      <>{a}, </>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

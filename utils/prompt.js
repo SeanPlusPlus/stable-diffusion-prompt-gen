@@ -27,7 +27,6 @@ const semiRandomKeys = [
 
 export const getSemiRandomPrompt = (json) => {
   // const keys = semiRandomKeys[1]
-  
   const keys = _sample(semiRandomKeys)
   console.log('* semi-random keys', keys)
   const arr = []
@@ -35,8 +34,12 @@ export const getSemiRandomPrompt = (json) => {
     const term = _sample(json[k])
     arr.push(term)
   })
-  const str = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
-  return str
+  const text = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
+  return {
+    text,
+    attributes: keys,
+  }
+
 }
 
 export const getRandomPrompt = (json) => {
@@ -48,6 +51,9 @@ export const getRandomPrompt = (json) => {
     const term = _sample(json[k])
     arr.push(term)
   })
-  const str = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
-  return str
+  const text = arr.map((t, i) => (t + (i < arr.length -1 ? ', ' : ''))).join('')
+  return {
+    text,
+    attributes: keys,
+  }
 }
