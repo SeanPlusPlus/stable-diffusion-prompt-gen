@@ -1,33 +1,7 @@
 import _sampleSize from 'lodash/sampleSize'
 import _sample from 'lodash/sample'
 
-const semiRandomAttrs = [
-  [
-    'scenario-desc',
-    'artist',
-    'landscape-type',
-    'style',
-    'hd',
-  ],
-  [
-    'animals',
-    'adj-beauty',
-    'portrait-type',
-    'artist',
-    'color-palette',
-  ],
-  [
-    'identity-adult',
-    'fantasy-setting',
-    'noun-beauty',
-    'pop-culture',
-    'rpg-Item',
-  ]
-]
-
-export const getSemiRandomPrompt = (json) => {
-  // const keys = semiRandomKeys[1]
-  const attributes = _sample(semiRandomAttrs)
+export const getSemiRandomPrompt = (json, attributes) => {
   const arr = []
   attributes.forEach((a) => {
     const term = _sample(json[a])

@@ -30,7 +30,14 @@ export default function Home() {
     setPrompts([prompt, ...prompts])
   }
   const semiRandom = () => {
-    const { text, attributes } = getSemiRandomPrompt(data)
+    const selectedAttributes = [
+      'adj-beauty',
+      'landscape-type',
+      'artist',
+      'style',
+      'hd',
+    ]
+    const { text, attributes } = getSemiRandomPrompt(data, selectedAttributes)
     const prompt = {type: 'semiRandom', text, attributes}
     setPrompts([prompt, ...prompts])
   }
