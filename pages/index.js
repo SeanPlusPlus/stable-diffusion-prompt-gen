@@ -7,6 +7,7 @@ const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/m
 
 export default function Home() {
   const [data, setData] = useState(null)
+  const [modal, setModal] = useState('')
   const [prompts, setPrompts] = useState([])
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +34,11 @@ export default function Home() {
     console.log('str', str);
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(str)
+      setModal('modal-open')
     } 
+  }
+  const close = () => {
+    setModal('')
   }
   return (
     <div className="grid-bg min-h-screen">
@@ -49,12 +54,12 @@ export default function Home() {
         </h1>
 
         <p className="mt-4 text-xl">
-          Get a basket of terms from <a className="link" target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
-            Noodle Soup Prompts
+          Get a basket of terms from <a className="link text-sky-400" target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
+            Noodle Soup
           </a>
         </p>
 
-        <div className="mt-8">
+        <div className="mt-4">
           <button className="btn btn-primary mb-2 md:mr-2 w-60" onClick={random}>
             PURE-RANDOM PROMPT
           </button>
@@ -66,10 +71,10 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="flex mt-10">
+        <div className="flex mt-2">
           <div className="m-auto">
             { prompts.map((p, i) => (
-              <div key={i} className="card bg-base-100 shadow-xl mb-4 w-96">
+              <div key={i} className="card bg-base-100 shadow-xl mb-4 w-120 mr-4 ml-4 md:mr-0 md:ml-0">
                 <div className="card-body">
                   <p>
                     {p.text}
@@ -82,16 +87,26 @@ export default function Home() {
 
       </main>
 
-      <footer className="text-center">
+      <footer className="text-center mb-10">
         Powered by&nbsp;<a
           href="https://twitter.com/SeanPlusPlus"
           target="_blank"
           rel="noopener noreferrer"
-          className="link"
+          className="link text-sky-400"
         >
           SeanPlusPlus
         </a>
       </footer>
+
+      <div className={`modal ${modal}`}>
+        <div className="modal-box">
+          <p className="py-1">Text copied to clipboard!</p>
+          <p className="py-1">Feel free to generate more prompts, or refresh and start again</p>
+          <div className="modal-action">
+            <button className="btn" onClick={close}>Close</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
