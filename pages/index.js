@@ -82,7 +82,7 @@ export default function Home() {
                   </p>
                   <div>
                     {p.attributes.map((a) => (
-                      <>{a}, </>
+                      <span className="badge mr-1" key={a}>{a}</span>
                     ))}
                   </div>
                 </div>
