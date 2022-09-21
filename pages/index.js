@@ -7,11 +7,15 @@ const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/m
 
 export default function Home() {
   const [data, setData] = useState(null)
-  const [copyModal, setCopyModal] = useState('')
-  const [attributeModal, setAttribueModal] = useState('')
   const [prompts, setPrompts] = useState([])
   const [attribute, setAttribute] = useState(null)
   const [terms, setTerms] = useState([])
+
+  // modals
+  const [copyModal, setCopyModal] = useState('')
+  const [attributeModal, setAttribueModal] = useState('')
+  const [semiRandomModal, setSemiRandomModal] = useState('')
+
   useEffect(() => {
     async function fetchData() {
       const result = await axios(
@@ -41,6 +45,9 @@ export default function Home() {
     const prompt = {type: 'semiRandom', text, attributes}
     setPrompts([prompt, ...prompts])
   }
+  const openSemiRandom = () => {
+    setSemiRandomModal('modal-open')
+  }
   const getTerms = (e) => {
     const attribute = e.target.getAttribute('data-name')
     setAttribute(attribute)
@@ -57,6 +64,7 @@ export default function Home() {
   const close = () => {
     setCopyModal('')
     setAttribueModal('')
+    setSemiRandomModal('')
   }
   return (
     <div className="grid-bg min-h-screen">
@@ -81,7 +89,7 @@ export default function Home() {
           <button className="btn btn-primary mb-2 md:mr-3 w-56" onClick={random}>
             PURE-RANDOM PROMPT
           </button>
-          <button className="btn btn-secondary mb-2 w-56" onClick={semiRandom}>
+          <button className="btn btn-secondary mb-2 w-56" onClick={openSemiRandom}>
             SEMI-RANDOM PROMPT
           </button>
           <button className="btn btn-info mb-2 md:ml-3 w-56" onClick={copy}>
@@ -150,6 +158,16 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <div className={`modal ${semiRandomModal}`}>
+        <div className="modal-box">
+        <h3 className="font-bold text-2xl">Build a Semi Random Prompt</h3>
+          <div className="modal-action">
+            <button className="btn" onClick={close}>Generate</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }
