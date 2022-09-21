@@ -25,7 +25,7 @@ export default function Home() {
     setPrompts([prompt, ...prompts])
   }
   const semiRandom = () => {
-    const prompt = {type: 'curated', text: getSemiRandomPrompt(data)}
+    const prompt = {type: 'semiRandom', text: getSemiRandomPrompt(data)}
     setPrompts([prompt, ...prompts])
   }
   const copy = () => {
@@ -70,7 +70,7 @@ export default function Home() {
         { prompts.map((p, i) => (
             <div key={i} className={styles.grid}>
               <div href="https://nextjs.org/docs" className={styles.card}>
-                <p>{p.text}</p>
+                <p className={p.type === 'semiRandom' ? styles.semiRandom : styles.random}>{p.text}</p>
               </div>
             </div>
           ))
@@ -79,12 +79,12 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a
+        Powered by&nbsp;<a
           href="https://twitter.com/SeanPlusPlus"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by SeanPlusPlus
+          SeanPlusPlus
         </a>
       </footer>
     </div>
