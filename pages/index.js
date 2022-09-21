@@ -7,8 +7,11 @@ const URL = 'https://raw.githubusercontent.com/WASasquatch/noodle-soup-prompts/m
 
 export default function Home() {
   const [data, setData] = useState(null)
-  const [modal, setModal] = useState('')
+  const [copyModal, setCopyModal] = useState('')
+  const [attributeModal, setAttribueModal] = useState('')
   const [prompts, setPrompts] = useState([])
+  const [attribute, setAttribute] = useState(null)
+  const [terms, setTerms] = useState([])
   useEffect(() => {
     async function fetchData() {
       const result = await axios(
@@ -33,17 +36,20 @@ export default function Home() {
   }
   const getTerms = (e) => {
     const attribute = e.target.getAttribute('data-name')
-    console.log(data[attribute])
+    setAttribute(attribute)
+    setTerms(data[attribute])
+    setAttribueModal('modal-open')
   }
   const copy = () => {
     const str = prompts.map((p) => p.text).join('\n')
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(str)
-      setModal('modal-open')
+      setCopyModal('modal-open')
     } 
   }
   const close = () => {
-    setModal('')
+    setCopyModal('')
+    setAttribueModal('')
   }
   return (
     <div className="grid-bg min-h-screen">
@@ -86,7 +92,7 @@ export default function Home() {
                   </p>
                   <div>
                     {p.attributes.map((a) => (
-                      <span onClick={getTerms} data-name={a} className="badge mr-1 hover:cursor-pointer" key={a}>{a}</span>
+                      <span onClick={getTerms} data-name={a} className="badge mr-1 hover:cursor-pointer hover:text-sky-500" key={a}>{a}</span>
                     ))}
                   </div>
                 </div>
@@ -108,10 +114,30 @@ export default function Home() {
         </a>
       </footer>
 
-      <div className={`modal ${modal}`}>
+      <div className={`modal ${copyModal}`}>
         <div className="modal-box">
           <p className="py-1">Text copied to clipboard!</p>
           <p className="py-1">Feel free to generate more prompts, or refresh and start again</p>
+          <div className="modal-action">
+            <button className="btn" onClick={close}>Close</button>
+          </div>
+        </div>
+      </div>
+
+      <div className={`modal ${attributeModal}`}>
+        <div className="modal-box">
+        <h3 className="font-bold text-2xl">{attribute}</h3>
+          <div className="py-4 text-md">
+            {terms.map((t, i) => (
+              <span key={i} className="mr-1">
+                {t.length < 60 ? (
+                  <span className="badge hover:cursor-pointer hover:text-sky-500">{t}</span>
+                ) : (
+                  <span className="hover:cursor-pointer hover:text-sky-500">{t} ~ </span>
+                )}
+              </span>
+            ))}
+          </div>
           <div className="modal-action">
             <button className="btn" onClick={close}>Close</button>
           </div>
