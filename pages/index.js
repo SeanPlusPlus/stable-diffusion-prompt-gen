@@ -185,9 +185,9 @@ export default function Home() {
                 defaultValue={"default"}
                 onChange={selectAttribute}
               >
-                <option name="default">Select Attribute</option>
-                {keys.map((option) => (
-                  <option key={option} value={option}>{option}</option>
+                <option name="default">Select {semiRandomAttributes.length > 1 && '[ Another ]'} Attribute</option>
+                {keys.map((option, index) => (
+                  <option key={index} value={option}>{option}</option>
                 ))}
               </select>
             ))}
