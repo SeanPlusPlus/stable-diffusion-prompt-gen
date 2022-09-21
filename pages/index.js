@@ -60,7 +60,7 @@ export default function Home() {
       </Head>
 
       <main className="text-center">
-        <h1 className="text-4xl font-bold pt-20">
+        <h1 className="text-4xl font-bold pt-10 md:pt-20">
           Stable Diffusion Prompt Gen
         </h1>
 
