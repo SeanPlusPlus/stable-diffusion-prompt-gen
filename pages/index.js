@@ -36,7 +36,7 @@ export default function Home() {
     } 
   }
   return (
-    <div>
+    <div className="grid-bg min-h-screen">
       <Head>
         <title>Stable Diffusion Prompt Gen</title>
         <meta name="description" content="Get random stable diffusion prompts" />
@@ -44,36 +44,41 @@ export default function Home() {
       </Head>
 
       <main className="text-center">
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-4xl font-bold pt-20">
           Stable Diffusion Prompt Gen
         </h1>
 
-        <p className="">
-          Get a basket of terms from <a target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
+        <p className="mt-4 text-xl">
+          Get a basket of terms from <a className="link" target="_blank" rel="noopener noreferrer" href="https://github.com/WASasquatch/noodle-soup-prompts/blob/main/nsp_pantry.json">
             Noodle Soup Prompts
           </a>
         </p>
 
-        <p>
-          <button className="" onClick={random}>
+        <div className="mt-8">
+          <button className="btn btn-primary mr-2" onClick={random}>
             PURE-RANDOM PROMPT
           </button>
-          <button className="" onClick={semiRandom}>
+          <button className="btn btn-secondary" onClick={semiRandom}>
             SEMI-RANDOM PROMPT
           </button>
-          <button className="" onClick={copy}>
+          <button className="btn btn-info ml-2" onClick={copy}>
             COPY TO CLIPBOARD
           </button>
-        </p>
+        </div>
 
-        { prompts.map((p, i) => (
-            <div key={i} className="">
-              <div href="https://nextjs.org/docs" className="">
-                <p className={p.type}>{p.text}</p>
+        <div className="flex mt-10">
+          <div className="m-auto">
+            { prompts.map((p, i) => (
+              <div key={i} className="card bg-base-100 shadow-xl mb-4 w-96">
+                <div className="card-body">
+                  <p>
+                    {p.text}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))
-        }
+            ))}
+          </div>
+        </div>
 
       </main>
 
@@ -82,6 +87,7 @@ export default function Home() {
           href="https://twitter.com/SeanPlusPlus"
           target="_blank"
           rel="noopener noreferrer"
+          className="link"
         >
           SeanPlusPlus
         </a>
